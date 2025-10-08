@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-
+import token from '../config/token.js'
 
 const isAuth=async(req,res,next)=>{
     try{
@@ -9,7 +9,7 @@ const isAuth=async(req,res,next)=>{
         }
 
         let verifyToken=await jwt.verify(token,process.env.JWT_SECRET)
-        if(verifyToken){
+        if(!verifyToken){
            return res.status(400).json({messageL:"user does't have valid Token"})
         }
          req.userId=verifyToken.userId
